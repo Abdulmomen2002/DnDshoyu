@@ -33,6 +33,7 @@
       prerequisite: "المتطلب", proficiency: "الإتقان", spellAbility: "سمة التعويذات", slots: "خانات التعويذات", optional: "اختياري", ritual: "طقس",
       subclasses: "التخصصات الفرعية", subclass: "التخصص الفرعي", subclassDesc: "شرح التخصص", subclassFeatures: "ميزات التخصص", addSubclass: "إضافة تخصص", addSubclassFeature: "إضافة ميزة",
       characters: "شخصياتي", newCharacter: "إنشاء شخصية", characterName: "اسم الشخصية", playerName: "اسم اللاعب", characterLevel: "المستوى", race: "العرق", background: "الخلفية",
+      subclassDetails: "تفاصيل التخصص الفرعي", characterSpells: "التعويذات والحيل", spellSlotLevel: "مستوى التعويذة", spellSlotsTotal: "الخانات الكلية", spellSlotsRemaining: "الخانات المتبقية",
       alignment: "المحاذاة", experience: "نقاط الخبرة", abilities: "السمات", strength: "القوة", dexterity: "الرشاقة", constitution: "البنية", intelligence: "الذكاء", wisdom: "الحكمة", charisma: "الكاريزما",
       proficiencyBonus: "مكافأة الإتقان", savingThrows: "إنقاذات", skillProficient: "متقن", expertise: "إتقان مضاعف", hitPoints: "نقاط الحياة", currentHp: "الحالية", maxHp: "القصوى",
       armorClass: "فئة الدرع", initiative: "المبادرة", speed: "السرعة", hitDice: "نرد الحياة", inspiration: "إلهام", equipmentNotes: "العتاد والملاحظات", saveCharacter: "حفظ الشخصية",
@@ -72,6 +73,7 @@
       prerequisite: "Prerequisite", proficiency: "Proficiencies", spellAbility: "Spellcasting Ability", slots: "Spell Slots", optional: "optional", ritual: "Ritual",
       subclasses: "Subclasses", subclass: "Subclass", subclassDesc: "Subclass description", subclassFeatures: "Subclass features", addSubclass: "Add subclass", addSubclassFeature: "Add feature",
       characters: "My characters", newCharacter: "Create character", characterName: "Character name", playerName: "Player name", characterLevel: "Level", race: "Race", background: "Background",
+      subclassDetails: "Subclass details", characterSpells: "Spells and cantrips", spellSlotLevel: "Spell level", spellSlotsTotal: "Total slots", spellSlotsRemaining: "Slots remaining",
       alignment: "Alignment", experience: "Experience points", abilities: "Ability scores", strength: "Strength", dexterity: "Dexterity", constitution: "Constitution", intelligence: "Intelligence", wisdom: "Wisdom", charisma: "Charisma",
       proficiencyBonus: "Proficiency bonus", savingThrows: "Saving throws", skillProficient: "Proficient", expertise: "Expertise", hitPoints: "Hit points", currentHp: "Current", maxHp: "Maximum",
       armorClass: "Armor class", initiative: "Initiative", speed: "Speed", hitDice: "Hit dice", inspiration: "Inspiration", equipmentNotes: "Equipment and notes", saveCharacter: "Save character",
@@ -834,7 +836,8 @@
     SKILLS.forEach(function (s) { skills[s[0]] = { proficient: false, expertise: false }; });
     return { name: "", player: "", classId: "", subclass: "", raceId: "", backgroundId: "", level: 1, alignment: "",
       experience: 0, stats: stats, skills: skills, saves: saves, proficiencyBonus: 2, hp: 0, maxHp: 0, armorClass: 10,
-      initiative: 0, speed: "", hitDice: "", inspiration: false, notes: "" };
+      initiative: 0, speed: "", hitDice: "", inspiration: false, subclassDetails: "", spells: "",
+      spellSlots: Array.from({ length: 9 }, function () { return { total: 0, remaining: 0 }; }), notes: "" };
   }
   function selectedOptions(kind, selected, title) {
     var data = D[kind] || [];
@@ -846,6 +849,17 @@
     return '<div class="field"><label for="' + id + '">' + esc(ui(key)) + '</label><input id="' + id + '" type="' + type +
       '" value="' + esc(value == null ? "" : value) + '"' + (min == null ? "" : ' min="' + min + '"') +
       (max == null ? "" : ' max="' + max + '"') + "></div>";
+  }
+  function characterSpellSlots(slots) {
+    var rows = '<thead><tr><th>' + esc(ui("spellSlotLevel")) + "</th><th>" + esc(ui("spellSlotsTotal")) +
+      "</th><th>" + esc(ui("spellSlotsRemaining")) + "</th></tr></thead><tbody>";
+    for (var level = 1; level <= 9; level++) {
+      var slot = slots[level - 1] || {};
+      rows += "<tr><td>" + level + '</td><td><input type="number" min="0" data-slot-total="' + level +
+        '" value="' + esc(slot.total == null ? 0 : slot.total) + '"></td><td><input type="number" min="0" data-slot-remaining="' + level +
+        '" value="' + esc(slot.remaining == null ? 0 : slot.remaining) + '"></td></tr>';
+    }
+    return '<div class="table-wrap spell-slots"><table>' + rows + "</tbody></table></div>";
   }
   function characterForm(character, id) {
     var c = character || newCharacter(), stats = c.stats || {}, skills = c.skills || {}, saves = c.saves || {};
@@ -874,7 +888,11 @@
       characterField("ch_ac", "armorClass", "number", c.armorClass, 0) + characterField("ch_init", "initiative", "number", c.initiative) +
       characterField("ch_speed", "speed", "text", c.speed) + characterField("ch_hitdice", "hitDice", "text", c.hitDice) +
       '</div><div class="field"><label class="chk"><input id="ch_inspiration" type="checkbox"' + (c.inspiration ? " checked" : "") +
-      "> " + esc(ui("inspiration")) + '</label></div><div class="field"><label for="ch_notes">' + esc(ui("equipmentNotes")) +
+      "> " + esc(ui("inspiration")) + '</label></div><h2>' + esc(ui("spells")) + '</h2><div class="field"><label for="ch_spells">' +
+      esc(ui("characterSpells")) + '</label><textarea id="ch_spells" rows="5">' + esc(c.spells || "") + '</textarea></div><h3>' +
+      esc(ui("slots")) + "</h3>" + characterSpellSlots(c.spellSlots || []) +
+      '<div class="field"><label for="ch_subclass_details">' + esc(ui("subclassDetails")) + '</label><textarea id="ch_subclass_details" rows="3">' + esc(c.subclassDetails || "") +
+      '</textarea></div><div class="field"><label for="ch_notes">' + esc(ui("equipmentNotes")) +
       '</label><textarea id="ch_notes" rows="5">' + esc(c.notes || "") + '</textarea></div><p><button class="btn" type="submit">' + esc(ui("saveCharacter")) +
       '</button> <button class="btn" type="button" id="printCharacter">' + esc(ui("print")) + "</button> " +
       (id ? '<button class="btn" type="button" id="deleteCharacter">' + esc(ui("deleteCharacter")) + "</button> " : "") +
@@ -943,6 +961,7 @@
       character.player = document.getElementById("ch_player").value.trim();
       character.classId = document.getElementById("ch_class").value;
       character.subclass = document.getElementById("ch_subclass").value.trim();
+      character.subclassDetails = document.getElementById("ch_subclass_details").value.trim();
       character.raceId = document.getElementById("ch_race").value;
       character.backgroundId = document.getElementById("ch_background").value;
       character.level = parseInt(document.getElementById("ch_level").value, 10) || 1;
@@ -964,6 +983,14 @@
       character.speed = document.getElementById("ch_speed").value.trim();
       character.hitDice = document.getElementById("ch_hitdice").value.trim();
       character.inspiration = document.getElementById("ch_inspiration").checked;
+      character.spells = document.getElementById("ch_spells").value.trim();
+      character.spellSlots = Array.from({ length: 9 }, function (_, index) {
+        var level = index + 1;
+        return {
+          total: parseInt(form.querySelector('[data-slot-total="' + level + '"]').value, 10) || 0,
+          remaining: parseInt(form.querySelector('[data-slot-remaining="' + level + '"]').value, 10) || 0
+        };
+      });
       character.notes = document.getElementById("ch_notes").value.trim();
       var idx = CHARACTERS.findIndex(function (item) { return item.id === character.id; });
       if (idx === -1) CHARACTERS.push(character); else CHARACTERS[idx] = character;
