@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shoyu|D&amp;D</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <button id="menuBtn" class="icon-btn" aria-label="menu">☰</button>
+  <a class="brand" href="#/"><span class="brand-mark">⚔</span><span id="brandName">Shoyu|D&amp;D</span></a>
+  <input id="globalSearch" class="search" type="search" data-i18n-ph="searchPh" autocomplete="off">
+  <div class="top-actions">
+    <button id="langBtn" class="btn small"></button>
+    <button id="themeBtn" class="btn small" aria-label="theme">◐</button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav id="sidebar" class="sidebar">
+    <a href="#/" data-nav="home" data-i18n="navHome"></a>
+    <div class="nav-title" data-i18n="navCharacter"></div>
+    <a href="#/characters" data-nav="characters" data-i18n="navSheet"></a>
+    <a href="#/classes" data-nav="classes" data-i18n="navClasses"></a>
+    <a href="#/races" data-nav="races" data-i18n="navRaces"></a>
+    <a href="#/backgrounds" data-nav="backgrounds" data-i18n="navBackgrounds"></a>
+    <a href="#/feats" data-nav="feats" data-i18n="navFeats"></a>
+    <div class="nav-title" data-i18n="navRules"></div>
+    <a href="#/spells" data-nav="spells" data-i18n="navSpells"></a>
+    <a href="#/equipment" data-nav="equipment" data-i18n="navEquipment"></a>
+    <div class="nav-title" data-i18n="navTools"></div>
+    <a href="#/add" data-nav="add" data-i18n="navAdd"></a>
+    <a href="#/import" data-nav="import" data-i18n="navImport"></a>
+  </nav>
+  <main id="content" class="content"></main>
+</div>
+
+<footer class="footer" data-i18n="footer"></footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
