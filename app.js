@@ -33,10 +33,10 @@
       prerequisite: "المتطلب", proficiency: "الإتقان", spellAbility: "سمة التعويذات", slots: "خانات التعويذات", optional: "اختياري", ritual: "طقس",
       subclasses: "التخصصات الفرعية", subclass: "التخصص الفرعي", subclassDesc: "شرح التخصص", subclassFeatures: "ميزات التخصص", addSubclass: "إضافة تخصص", addSubclassFeature: "إضافة ميزة",
       characters: "شخصياتي", newCharacter: "إنشاء شخصية", characterName: "اسم الشخصية", playerName: "اسم اللاعب", characterLevel: "المستوى", race: "العرق", background: "الخلفية",
-      subclassDetails: "تفاصيل التخصص الفرعي", characterSpells: "التعويذات والحيل", spellSlotLevel: "مستوى التعويذة", spellSlotsTotal: "الخانات الكلية", spellSlotsRemaining: "الخانات المتبقية",
-      alignment: "المحاذاة", experience: "نقاط الخبرة", abilities: "السمات", strength: "القوة", dexterity: "الرشاقة", constitution: "البنية", intelligence: "الذكاء", wisdom: "الحكمة", charisma: "الكاريزما",
+      subclassDetails: "تفاصيل التخصص الفرعي", featDetails: "تفاصيل الإنجازات", raceFeatures: "ميزات العرق", characterSpells: "التعويذات والحيل", spellSlotLevel: "مستوى التعويذة", spellSlotsTotal: "الخانات الكلية", spellSlotsRemaining: "الخانات المتبقية",
+      alignment: "المحاذاة", experience: "نقاط الخبرة", abilities: "السمات", abilityModifier: "معدّل السمة", strength: "القوة", dexterity: "الرشاقة", constitution: "البنية", intelligence: "الذكاء", wisdom: "الحكمة", charisma: "الكاريزما",
       proficiencyBonus: "مكافأة الإتقان", savingThrows: "إنقاذات", skillProficient: "متقن", expertise: "إتقان مضاعف", hitPoints: "نقاط الحياة", currentHp: "الحالية", maxHp: "القصوى",
-      armorClass: "فئة الدرع", initiative: "المبادرة", speed: "السرعة", hitDice: "نرد الحياة", inspiration: "إلهام", equipmentNotes: "العتاد والملاحظات", saveCharacter: "حفظ الشخصية",
+      armorClass: "فئة الدرع", initiative: "المبادرة", speed: "السرعة", vision: "الرؤية", hitDice: "نرد الحياة", inspiration: "إلهام", equipmentNotes: "العتاد والملاحظات", saveCharacter: "حفظ الشخصية",
       deleteCharacter: "حذف الشخصية", print: "طباعة", characterSaved: "تم حفظ الشخصية.", confirmDeleteCharacter: "هل تريد حذف هذه الشخصية؟", selectClass: "اختر الفئة",
       backupExport: "تصدير نسخة احتياطية", backupImport: "استيراد نسخة احتياطية", backupIntro: "تتضمن النسخة الاحتياطية المحتوى المستورد والمضاف يدويًا وجميع أوراق الشخصيات. عند الاستيراد تُدمج العناصر الجديدة وتُتخطى العناصر ذات المعرّفات الموجودة دون استبدال بياناتك.",
       backupInvalid: "ملف النسخة الاحتياطية غير صالح أو غير مدعوم.", backupDone: "اكتمل الاستيراد. العناصر الموجودة مسبقًا لم تُستبدل.",
@@ -73,10 +73,10 @@
       prerequisite: "Prerequisite", proficiency: "Proficiencies", spellAbility: "Spellcasting Ability", slots: "Spell Slots", optional: "optional", ritual: "Ritual",
       subclasses: "Subclasses", subclass: "Subclass", subclassDesc: "Subclass description", subclassFeatures: "Subclass features", addSubclass: "Add subclass", addSubclassFeature: "Add feature",
       characters: "My characters", newCharacter: "Create character", characterName: "Character name", playerName: "Player name", characterLevel: "Level", race: "Race", background: "Background",
-      subclassDetails: "Subclass details", characterSpells: "Spells and cantrips", spellSlotLevel: "Spell level", spellSlotsTotal: "Total slots", spellSlotsRemaining: "Slots remaining",
-      alignment: "Alignment", experience: "Experience points", abilities: "Ability scores", strength: "Strength", dexterity: "Dexterity", constitution: "Constitution", intelligence: "Intelligence", wisdom: "Wisdom", charisma: "Charisma",
+      subclassDetails: "Subclass details", featDetails: "Feat details", raceFeatures: "Race features", characterSpells: "Spells and cantrips", spellSlotLevel: "Spell level", spellSlotsTotal: "Total slots", spellSlotsRemaining: "Slots remaining",
+      alignment: "Alignment", experience: "Experience points", abilities: "Ability scores", abilityModifier: "Ability modifier", strength: "Strength", dexterity: "Dexterity", constitution: "Constitution", intelligence: "Intelligence", wisdom: "Wisdom", charisma: "Charisma",
       proficiencyBonus: "Proficiency bonus", savingThrows: "Saving throws", skillProficient: "Proficient", expertise: "Expertise", hitPoints: "Hit points", currentHp: "Current", maxHp: "Maximum",
-      armorClass: "Armor class", initiative: "Initiative", speed: "Speed", hitDice: "Hit dice", inspiration: "Inspiration", equipmentNotes: "Equipment and notes", saveCharacter: "Save character",
+      armorClass: "Armor class", initiative: "Initiative", speed: "Speed", vision: "Vision", hitDice: "Hit dice", inspiration: "Inspiration", equipmentNotes: "Equipment and notes", saveCharacter: "Save character",
       deleteCharacter: "Delete character", print: "Print", characterSaved: "Character saved.", confirmDeleteCharacter: "Delete this character?", selectClass: "Choose class",
       backupExport: "Export backup", backupImport: "Import backup", backupIntro: "The backup includes imported content, manually added content, and all character sheets. Import merges new items and skips existing IDs without replacing your data.",
       backupInvalid: "The backup file is invalid or unsupported.", backupDone: "Import complete. Existing items were not replaced.",
@@ -836,7 +836,7 @@
     SKILLS.forEach(function (s) { skills[s[0]] = { proficient: false, expertise: false }; });
     return { name: "", player: "", classId: "", subclass: "", raceId: "", backgroundId: "", level: 1, alignment: "",
       experience: 0, stats: stats, skills: skills, saves: saves, proficiencyBonus: 2, hp: 0, maxHp: 0, armorClass: 10,
-      initiative: 0, speed: "", hitDice: "", inspiration: false, subclassDetails: "", spells: "",
+      initiative: 0, speed: "", vision: "", hitDice: "", inspiration: false, featDetails: "", raceFeatures: "", subclassDetails: "", spells: "",
       spellSlots: Array.from({ length: 9 }, function () { return { total: 0, remaining: 0 }; }), notes: "" };
   }
   function selectedOptions(kind, selected, title) {
@@ -849,6 +849,12 @@
     return '<div class="field"><label for="' + id + '">' + esc(ui(key)) + '</label><input id="' + id + '" type="' + type +
       '" value="' + esc(value == null ? "" : value) + '"' + (min == null ? "" : ' min="' + min + '"') +
       (max == null ? "" : ' max="' + max + '"') + "></div>";
+  }
+  function abilityField(ability, score) {
+    var id = "stat_" + ability[0];
+    return '<div class="field ability-score-field"><label for="' + id + '">' + esc(ui(ability[1])) + '</label><input id="' + id +
+      '" type="number" min="1" max="30" value="' + esc(score == null ? 10 : score) + '"><div class="ability-modifier"><span>' +
+      esc(ui("abilityModifier")) + '</span><output data-ability-mod="' + ability[0] + '"></output></div></div>';
   }
   function characterSpellSlots(slots) {
     var rows = '<thead><tr><th>' + esc(ui("spellSlotLevel")) + "</th><th>" + esc(ui("spellSlotsTotal")) +
@@ -871,7 +877,7 @@
       '<div class="field"><label for="ch_background">' + esc(ui("background")) + '</label><select id="ch_background">' + selectedOptions("backgrounds", c.backgroundId, "background") + "</select></div>" +
       characterField("ch_level", "characterLevel", "number", c.level, 1, 20) + characterField("ch_alignment", "alignment", "text", c.alignment) +
       characterField("ch_xp", "experience", "number", c.experience, 0) + "</div><h2>" + esc(ui("abilities")) + '</h2><div class="ability-grid">' +
-      ABILITIES.map(function (a) { return characterField("stat_" + a[0], a[1], "number", stats[a[0]] == null ? 10 : stats[a[0]], 1, 30); }).join("") +
+      ABILITIES.map(function (a) { return abilityField(a, stats[a[0]]); }).join("") +
       characterField("ch_pb", "proficiencyBonus", "number", c.proficiencyBonus, 0, 20) + "</div><h2>" + esc(ui("savingThrows")) +
       '</h2><div class="saving-grid">' + ABILITIES.map(function (a) {
         return '<label class="chk"><input type="checkbox" data-save="' + a[0] + '"' + (saves[a[0]] ? " checked" : "") + "> " +
@@ -886,12 +892,15 @@
       }).join("") + "</div><h2>" + esc(ui("hitPoints")) + '</h2><div class="character-grid">' +
       characterField("ch_hp", "currentHp", "number", c.hp, 0) + characterField("ch_maxhp", "maxHp", "number", c.maxHp, 0) +
       characterField("ch_ac", "armorClass", "number", c.armorClass, 0) + characterField("ch_init", "initiative", "number", c.initiative) +
-      characterField("ch_speed", "speed", "text", c.speed) + characterField("ch_hitdice", "hitDice", "text", c.hitDice) +
+      characterField("ch_speed", "speed", "text", c.speed) + characterField("ch_vision", "vision", "text", c.vision) +
+      characterField("ch_hitdice", "hitDice", "text", c.hitDice) +
       '</div><div class="field"><label class="chk"><input id="ch_inspiration" type="checkbox"' + (c.inspiration ? " checked" : "") +
       "> " + esc(ui("inspiration")) + '</label></div><h2>' + esc(ui("spells")) + '</h2><div class="field"><label for="ch_spells">' +
       esc(ui("characterSpells")) + '</label><textarea id="ch_spells" rows="5">' + esc(c.spells || "") + '</textarea></div><h3>' +
       esc(ui("slots")) + "</h3>" + characterSpellSlots(c.spellSlots || []) +
-      '<div class="field"><label for="ch_subclass_details">' + esc(ui("subclassDetails")) + '</label><textarea id="ch_subclass_details" rows="3">' + esc(c.subclassDetails || "") +
+      '<div class="field"><label for="ch_feat_details">' + esc(ui("featDetails")) + '</label><textarea id="ch_feat_details" rows="3">' + esc(c.featDetails || "") +
+      '</textarea></div><div class="field"><label for="ch_race_features">' + esc(ui("raceFeatures")) + '</label><textarea id="ch_race_features" rows="3">' + esc(c.raceFeatures || "") +
+      '</textarea></div><div class="field"><label for="ch_subclass_details">' + esc(ui("subclassDetails")) + '</label><textarea id="ch_subclass_details" rows="3">' + esc(c.subclassDetails || "") +
       '</textarea></div><div class="field"><label for="ch_notes">' + esc(ui("equipmentNotes")) +
       '</label><textarea id="ch_notes" rows="5">' + esc(c.notes || "") + '</textarea></div><p><button class="btn" type="submit">' + esc(ui("saveCharacter")) +
       '</button> <button class="btn" type="button" id="printCharacter">' + esc(ui("print")) + "</button> " +
@@ -918,6 +927,7 @@
     var pb = parseInt(form.querySelector("#ch_pb").value, 10) || 0;
     ABILITIES.forEach(function (a) {
       var score = parseInt(form.querySelector("#stat_" + a[0]).value, 10) || 0;
+      form.querySelector('[data-ability-mod="' + a[0] + '"]').textContent = signed(abilityModifier(score));
       var save = form.querySelector('[data-save-mod="' + a[0] + '"]');
       save.textContent = signed(abilityModifier(score) + (form.querySelector('[data-save="' + a[0] + '"]').checked ? pb : 0));
     });
@@ -962,6 +972,8 @@
       character.classId = document.getElementById("ch_class").value;
       character.subclass = document.getElementById("ch_subclass").value.trim();
       character.subclassDetails = document.getElementById("ch_subclass_details").value.trim();
+      character.featDetails = document.getElementById("ch_feat_details").value.trim();
+      character.raceFeatures = document.getElementById("ch_race_features").value.trim();
       character.raceId = document.getElementById("ch_race").value;
       character.backgroundId = document.getElementById("ch_background").value;
       character.level = parseInt(document.getElementById("ch_level").value, 10) || 1;
@@ -981,6 +993,7 @@
       character.armorClass = parseInt(document.getElementById("ch_ac").value, 10) || 0;
       character.initiative = parseInt(document.getElementById("ch_init").value, 10) || 0;
       character.speed = document.getElementById("ch_speed").value.trim();
+      character.vision = document.getElementById("ch_vision").value.trim();
       character.hitDice = document.getElementById("ch_hitdice").value.trim();
       character.inspiration = document.getElementById("ch_inspiration").checked;
       character.spells = document.getElementById("ch_spells").value.trim();
