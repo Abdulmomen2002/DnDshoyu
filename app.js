@@ -34,6 +34,7 @@
       subclasses: "التخصصات الفرعية", subclass: "التخصص الفرعي", subclassDesc: "شرح التخصص", subclassFeatures: "ميزات التخصص", addSubclass: "إضافة تخصص", addSubclassFeature: "إضافة ميزة",
       characters: "شخصياتي", newCharacter: "إنشاء شخصية", characterName: "اسم الشخصية", playerName: "اسم اللاعب", characterLevel: "المستوى", race: "العرق", background: "الخلفية",
       subclassDetails: "تفاصيل التخصص الفرعي", featDetails: "تفاصيل الإنجازات", raceFeatures: "ميزات العرق", characterSpells: "التعويذات والحيل", spellSlotLevel: "مستوى التعويذة", spellSlotsTotal: "الخانات الكلية", spellSlotsRemaining: "الخانات المتبقية",
+      weaponRange: "المدى", weaponAttack: "مكافأة الهجوم", addWeapon: "إضافة سلاح", removeWeapon: "حذف السلاح",
       alignment: "المحاذاة", experience: "نقاط الخبرة", abilities: "السمات", abilityModifier: "معدّل السمة", strength: "القوة", dexterity: "الرشاقة", constitution: "البنية", intelligence: "الذكاء", wisdom: "الحكمة", charisma: "الكاريزما",
       proficiencyBonus: "مكافأة الإتقان", savingThrows: "إنقاذات", skillProficient: "متقن", expertise: "إتقان مضاعف", hitPoints: "نقاط الحياة", currentHp: "الحالية", maxHp: "القصوى",
       armorClass: "فئة الدرع", initiative: "المبادرة", speed: "السرعة", vision: "الرؤية", hitDice: "نرد الحياة", inspiration: "إلهام", equipmentNotes: "العتاد والملاحظات", saveCharacter: "حفظ الشخصية",
@@ -74,6 +75,7 @@
       subclasses: "Subclasses", subclass: "Subclass", subclassDesc: "Subclass description", subclassFeatures: "Subclass features", addSubclass: "Add subclass", addSubclassFeature: "Add feature",
       characters: "My characters", newCharacter: "Create character", characterName: "Character name", playerName: "Player name", characterLevel: "Level", race: "Race", background: "Background",
       subclassDetails: "Subclass details", featDetails: "Feat details", raceFeatures: "Race features", characterSpells: "Spells and cantrips", spellSlotLevel: "Spell level", spellSlotsTotal: "Total slots", spellSlotsRemaining: "Slots remaining",
+      weaponRange: "Range", weaponAttack: "Attack bonus", addWeapon: "Add weapon", removeWeapon: "Remove weapon",
       alignment: "Alignment", experience: "Experience points", abilities: "Ability scores", abilityModifier: "Ability modifier", strength: "Strength", dexterity: "Dexterity", constitution: "Constitution", intelligence: "Intelligence", wisdom: "Wisdom", charisma: "Charisma",
       proficiencyBonus: "Proficiency bonus", savingThrows: "Saving throws", skillProficient: "Proficient", expertise: "Expertise", hitPoints: "Hit points", currentHp: "Current", maxHp: "Maximum",
       armorClass: "Armor class", initiative: "Initiative", speed: "Speed", vision: "Vision", hitDice: "Hit dice", inspiration: "Inspiration", equipmentNotes: "Equipment and notes", saveCharacter: "Save character",
@@ -837,7 +839,7 @@
     return { name: "", player: "", classId: "", subclass: "", raceId: "", backgroundId: "", level: 1, alignment: "",
       experience: 0, stats: stats, skills: skills, saves: saves, proficiencyBonus: 2, hp: 0, maxHp: 0, armorClass: 10,
       initiative: 0, speed: "", vision: "", hitDice: "", inspiration: false, featDetails: "", raceFeatures: "", subclassDetails: "", spells: "",
-      spellSlots: Array.from({ length: 9 }, function () { return { total: 0, remaining: 0 }; }), notes: "" };
+      weapons: [], spellSlots: Array.from({ length: 9 }, function () { return { total: 0, remaining: 0 }; }), notes: "" };
   }
   function selectedOptions(kind, selected, title) {
     var data = D[kind] || [];
@@ -867,6 +869,17 @@
     }
     return '<div class="table-wrap spell-slots"><table>' + rows + "</tbody></table></div>";
   }
+  function characterWeaponRows(weapons) {
+    return (weapons || []).map(function (weapon) {
+      return '<div class="weapon-row"><div class="field"><label>' + esc(ui("weapons")) +
+        '</label><input type="text" data-weapon="name" value="' + esc(weapon.name || "") + '"></div><div class="field"><label>' +
+        esc(ui("weaponRange")) + '</label><input type="text" data-weapon="range" value="' + esc(weapon.range || "") +
+        '"></div><div class="field"><label>' + esc(ui("weaponAttack")) + '</label><input type="text" data-weapon="attack" value="' +
+        esc(weapon.attack || "") + '"></div><div class="field"><label>' + esc(ui("damage")) +
+        '</label><input type="text" data-weapon="damage" value="' + esc(weapon.damage || "") + '"></div><button class="btn small remove-weapon" type="button" aria-label="' +
+        esc(ui("removeWeapon")) + '">×</button></div>';
+    }).join("");
+  }
   function characterForm(character, id) {
     var c = character || newCharacter(), stats = c.stats || {}, skills = c.skills || {}, saves = c.saves || {};
     var identity = '<form id="characterForm"><div class="character-grid">' +
@@ -895,7 +908,9 @@
       characterField("ch_speed", "speed", "text", c.speed) + characterField("ch_vision", "vision", "text", c.vision) +
       characterField("ch_hitdice", "hitDice", "text", c.hitDice) +
       '</div><div class="field"><label class="chk"><input id="ch_inspiration" type="checkbox"' + (c.inspiration ? " checked" : "") +
-      "> " + esc(ui("inspiration")) + '</label></div><h2>' + esc(ui("spells")) + '</h2><div class="field"><label for="ch_spells">' +
+      "> " + esc(ui("inspiration")) + '</label></div><h2>' + esc(ui("weapons")) + '</h2><div id="characterWeapons">' +
+      characterWeaponRows(c.weapons) + '</div><button class="btn small" type="button" id="addWeapon">+ ' + esc(ui("addWeapon")) +
+      '</button><h2>' + esc(ui("spells")) + '</h2><div class="field"><label for="ch_spells">' +
       esc(ui("characterSpells")) + '</label><textarea id="ch_spells" rows="5">' + esc(c.spells || "") + '</textarea></div><h3>' +
       esc(ui("slots")) + "</h3>" + characterSpellSlots(c.spellSlots || []) +
       '<div class="field"><label for="ch_feat_details">' + esc(ui("featDetails")) + '</label><textarea id="ch_feat_details" rows="3">' + esc(c.featDetails || "") +
@@ -941,6 +956,14 @@
   function bindCharacter(id) {
     var form = document.getElementById("characterForm");
     if (!form) return;
+    var weaponRows = document.getElementById("characterWeapons");
+    document.getElementById("addWeapon").addEventListener("click", function () {
+      weaponRows.insertAdjacentHTML("beforeend", characterWeaponRows([{}]));
+    });
+    weaponRows.addEventListener("click", function (event) {
+      var removeButton = event.target.closest(".remove-weapon");
+      if (removeButton) removeButton.closest(".weapon-row").remove();
+    });
     form.addEventListener("input", function () { updateCharacterMath(form); });
     form.addEventListener("change", function (event) {
       var target = event.target;
@@ -996,6 +1019,14 @@
       character.vision = document.getElementById("ch_vision").value.trim();
       character.hitDice = document.getElementById("ch_hitdice").value.trim();
       character.inspiration = document.getElementById("ch_inspiration").checked;
+      character.weapons = Array.prototype.map.call(form.querySelectorAll(".weapon-row"), function (row) {
+        return {
+          name: row.querySelector('[data-weapon="name"]').value.trim(),
+          range: row.querySelector('[data-weapon="range"]').value.trim(),
+          attack: row.querySelector('[data-weapon="attack"]').value.trim(),
+          damage: row.querySelector('[data-weapon="damage"]').value.trim()
+        };
+      }).filter(function (weapon) { return weapon.name || weapon.range || weapon.attack || weapon.damage; });
       character.spells = document.getElementById("ch_spells").value.trim();
       character.spellSlots = Array.from({ length: 9 }, function (_, index) {
         var level = index + 1;
