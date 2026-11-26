@@ -74,6 +74,8 @@ tbody tr:hover{background:var(--line)}
 .subclasses-editor{margin:8px 0}
 .character-grid,.ability-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0 12px}
 .ability-grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.weapon-row{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr)) auto;gap:8px;align-items:end;margin:8px 0;padding:10px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.weapon-row .field{margin:0}
 .spell-slots{max-width:560px}
 .spell-slots th:first-child,.spell-slots td:first-child{width:24%;text-align:center}
 .spell-slots td input{width:100%;min-width:72px;padding:6px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font:inherit}
@@ -111,6 +113,8 @@ form input[type=text],form input[type=number],form textarea,form select{width:10
   .search{max-width:none}
   .brand span:last-child{display:none}
   .skill-grid{grid-template-columns:1fr}
+  .weapon-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .weapon-row .remove-weapon{grid-column:1/-1;justify-self:start}
 }
 @media (max-width:520px){
   .skill-row{grid-template-columns:1fr auto auto 32px;font-size:.85rem}
