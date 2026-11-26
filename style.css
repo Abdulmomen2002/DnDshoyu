@@ -82,6 +82,8 @@ tbody tr:hover{background:var(--line)}
 .skill-row{display:grid;grid-template-columns:minmax(110px,1fr) auto auto 36px;gap:8px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
 .skill-row strong,.saving-grid strong{color:var(--accent)}
 .character-grid input[type=number],.ability-grid input[type=number]{max-width:100%}
+.ability-modifier{display:flex;justify-content:space-between;align-items:center;margin-top:5px;color:var(--muted);font-size:.9rem}
+.ability-modifier output{font-weight:700;color:var(--accent)}
 .empty{padding:30px;text-align:center;color:var(--muted)}
 
 .notice{background:var(--row);border:1px solid var(--line);border-inline-start:4px solid var(--accent2);border-radius:8px;padding:10px 14px;margin:10px 0}
